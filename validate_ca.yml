@@ -3,10 +3,10 @@
   gather_facts: no
   tasks:
     - name: fetch CSR from File Server
-      win_copy:
+      fetch:
         src: "{{ csr_file_server_path }}"
         dest: "{{ csr_awx_path }}"
-        remote_src: yes
+        flat: yes
 
 - name: Validate CA
   hosts: "{{ awx_host }}"
