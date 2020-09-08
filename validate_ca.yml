@@ -1,0 +1,50 @@
+- name: Validate CA
+  hosts: "{{ awx_host }}"
+  tasks:
+    - name: fetch CSR from File Server
+      win_copy:
+        src: "{{ csr_file_server_path }}"
+        dest: "{{ csr_awx_path }}"
+        remote_src: yes
+      delegate_to: file_server
+
+    - name: Copy CSR to Windows Server CA
+      win_copy:
+        src: "{{ csr_awx_path }}"
+        dest: "{{ csr_windows_server_path }}"
+
+    - name: Gen Certificate Request to CA
+      win_shell: "certreq.exe -attrib 'CertificateTemplate:{{ ca_template }}' {{ csr_windows_server_path }} {{ cer_name }}"
+      
+    #   ex: ca_template = WebServer
+    #   ex: csr_windows_server_path = D:\Cert\demo_example_com.csr
+    #   ex: cer_windows_path = demo.cer
+
+    # - name: Issued / approve certificate request
+
+    # - name: Export Certificate
+
+    - name: fetch CSR from Windows Server CA
+      win_copy:
+        src: "{{ cer_windows_path }}"
+        dest: "{{ cer_awx_path }}"
+        remote_src: yes
+
+    - name: fetch pfx from Windows Server CA
+      win_copy:
+        src: "{{ pfx_windows_path }}"
+        dest: "{{ pfx_awx_path }}"
+        remote_src: yes
+
+    - name: Copy CSR to File Server
+      win_copy:
+        src: "{{ cer_awx_path }}"
+        dest: "{{ cer_file_server_path }}"
+      delegate_to: file_server
+
+
+    - name: Copy pfx to File Server
+      win_copy:
+        src: "{{ pfx_awx_path }}"
+        dest: "{{ pfx_file_server_path }}"
+      delegate_to: file_server
