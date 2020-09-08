@@ -4,8 +4,8 @@
   tasks:
     - name: fetch CSR from File Server
       fetch:
-        src: "{{ csr_file_server_path }}"
-        dest: "{{ csr_awx_path }}"
+        src: "{{ inf_file_server_path }}"
+        dest: "{{ inf_awx_path }}"
         flat: yes
 
 - name: Validate CA
@@ -14,8 +14,8 @@
   tasks:
     - name: Copy CSR to Windows Server CA
       win_copy:
-        src: "{{ csr_awx_path }}"
-        dest: "{{ csr_windows_server_path }}"
+        src: "{{ inf_awx_path }}"
+        dest: "{{ inf_windows_server_path }}"
 
     - name: Gen Certificate Request to CA
       win_shell: "certreq -new {{ inf_windows_server_path }} {{ csr_windows_server_path }}"
