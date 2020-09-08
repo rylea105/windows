@@ -24,27 +24,27 @@
 
     # - name: Export Certificate
 
-    - name: fetch CSR from Windows Server CA
-      win_copy:
-        src: "{{ cer_windows_path }}"
-        dest: "{{ cer_awx_path }}"
-        remote_src: yes
+    #- name: fetch CSR from Windows Server CA
+    #  win_copy:
+    #    src: "{{ cer_windows_path }}"
+    #    dest: "{{ cer_awx_path }}"
+    #    remote_src: yes
 
-    - name: fetch pfx from Windows Server CA
-      win_copy:
-        src: "{{ pfx_windows_path }}"
-        dest: "{{ pfx_awx_path }}"
-        remote_src: yes
+    #- name: fetch pfx from Windows Server CA
+    # win_copy:
+    #    src: "{{ pfx_windows_path }}"
+    #    dest: "{{ pfx_awx_path }}"
+    #    remote_src: yes
 
-    - name: Copy CSR to File Server
-      win_copy:
-        src: "{{ cer_awx_path }}"
-        dest: "{{ cer_file_server_path }}"
-      delegate_to: file_server
+    #- name: Copy CSR to File Server
+    #  win_copy:
+    #    src: "{{ cer_awx_path }}"
+    #    dest: "{{ cer_file_server_path }}"
+    #  delegate_to: file_server
 
 
-    - name: Copy pfx to File Server
-      win_copy:
-        src: "{{ pfx_awx_path }}"
-        dest: "{{ pfx_file_server_path }}"
-      delegate_to: file_server
+    #- name: Copy pfx to File Server
+    #  win_copy:
+    #   src: "{{ pfx_awx_path }}"
+    #   dest: "{{ pfx_file_server_path }}"
+    # delegate_to: file_server
