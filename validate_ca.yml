@@ -18,7 +18,7 @@
         dest: "{{ csr_windows_server_path }}"
 
     - name: Gen Certificate Request to CA
-      win_shell: "certreq.exe -attrib 'CertificateTemplate:{{ ca_template }}' {{ csr_windows_server_path }} {{ cer_name }}"
+      win_shell: "certreq -new {{ inf_windows_server_path }} {{ csr_windows_server_path }}"
       
     #   ex: ca_template = WebServer
     #   ex: csr_windows_server_path = D:\Cert\demo_example_com.csr
