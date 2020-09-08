@@ -1,13 +1,17 @@
-- name: Validate CA
-  hosts: "{{ awx_host }}"
+- name: fetch CSR from File Server
+  hosts: file_server
+  gather_facts: no
   tasks:
     - name: fetch CSR from File Server
       win_copy:
         src: "{{ csr_file_server_path }}"
         dest: "{{ csr_awx_path }}"
         remote_src: yes
-      delegate_to: file_server
 
+- name: Validate CA
+  hosts: "{{ awx_host }}"
+  gather_facts: no
+  tasks:
     - name: Copy CSR to Windows Server CA
       win_copy:
         src: "{{ csr_awx_path }}"
